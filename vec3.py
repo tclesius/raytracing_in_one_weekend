@@ -1,6 +1,8 @@
 import math
 from dataclasses import dataclass
 
+from utilitys import random_float
+
 
 @dataclass
 class vec3:
@@ -85,6 +87,20 @@ class vec3:
 
     def unit_vector(self):
         return self / self.__len__()
+
+    @staticmethod
+    def random(min: float = None, max: float = None):
+        if min and max:
+            return vec3(random_float(min, max), random_float(min, max), random_float(min, max))
+        else:
+            return vec3(random_float(), random_float(), random_float())
+
+    @staticmethod
+    def random_in_unit_sphere():
+        while True:
+            p = vec3.random(-1, 1)
+            if p.length_squared() >= 1: continue
+            return p
 
 
 # Type aliases for Vec3
